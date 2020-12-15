@@ -2,74 +2,39 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductRepository;
-use Doctrine\ORM\Mapping as ORM;
-
-/**
- * @ORM\Entity(repositoryClass=ProductRepository::class)
- */
 class Product
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    const FOOD_PRODUCT = 'food';
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+
+
     private $name;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+
     private $type;
 
-    /**
-     * @ORM\Column(type="float")
-     */
+
     private $price;
 
-    public function getId(): ?int
+
+   public function __construct($name, $type, $price)
+   {
+       $this->name=$name;
+       $this->type = $type;
+       $this->price = $price;
+   }
+
+
+   /**
+    * calculate TVA for a product
+    * @return float
+    */
+    public function computeTVA():float
     {
-        return $this->id;
-    }
+        if (self::FOOD_PRODUCT == $this->type) {
+            return $this->price * 0.055;
+        }
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    public function getPrice(): ?float
-    {
-        return $this->price;
-    }
-
-    public function setPrice(float $price): self
-    {
-        $this->price = $price;
-
-        return $this;
+        return $this->price * 0.196;
     }
 }
