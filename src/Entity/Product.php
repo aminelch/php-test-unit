@@ -8,13 +8,13 @@ class Product
 
 
 
-    private $name;
+    public $name;
 
 
-    private $type;
+    public $type;
 
 
-    private $price;
+    public $price;
 
 
    public function __construct($name, $type, $price)

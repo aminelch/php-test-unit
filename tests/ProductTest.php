@@ -19,4 +19,14 @@ class ProductTest extends TestCase
 
 
     }
+
+    public function testFoodProductName(){
+
+        //on construit un nouveau produit
+        $product = new Product("un other product","food", 11);
+
+
+        // on assure que "food" est egal au propriété food d'object $product
+        $this->assertEquals($product::FOOD_PRODUCT, $product->type);
+    }
 }
